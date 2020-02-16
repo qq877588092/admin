@@ -13,6 +13,20 @@ const {
     updateGoods
 } = require('../controls/goodsControls');
 
+/**
+ * @api {post} /admin/goods/add 添加商品
+ * @apiName add
+ * @apiGroup Goods
+ *
+ * @apiParam {String} title 商品描述
+ * @apiParam {String} price 商品价格
+ * @apiParam {String} img 商品图片
+ * @apiParam {String} shopName 店铺名字
+ * @apiParam {String} mark 商品评价
+ *
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg 信息提示
+ */
 //添加商品
 Router.post('/add', (req, res) => {
     //接收前端数据
@@ -37,7 +51,16 @@ Router.post('/add', (req, res) => {
     });
 })
 
-// 查询全部食品 
+/**
+ * @api {post} /admin/goods/infos 查询商品
+ * @apiName infos
+ * @apiGroup Goods
+ * 
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg 信息提示
+ * @apiSuccess {Array} list 查询到的数据
+ */
+// 查询全部商品 
 Router.post('/infos', (req, res) => {
     findGoods()
         .then((data) => {
@@ -55,6 +78,16 @@ Router.post('/infos', (req, res) => {
         })
 })
 
+/**
+ * @api {post} /admin/goods/del 删除商品
+ * @apiName del
+ * @apiGroup Goods
+ *
+ * @apiParam {String} _id 商品id
+ *
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg 信息提示
+ */
 // 2. 删除商品
 Router.post('/del', (req, res) => {
     // 获取要删除数据的id
@@ -77,6 +110,21 @@ Router.post('/del', (req, res) => {
 
 })
 
+/**
+ * @api {post} /admin/goods/update 修改商品
+ * @apiName update
+ * @apiGroup Goods
+ *
+ * @apiParam {String} _id 商品id
+ * @apiParam {String} title 商品描述
+ * @apiParam {String} price 商品价格
+ * @apiParam {String} img 商品图片
+ * @apiParam {String} shopName 店铺名字
+ * @apiParam {String} mark 商品评价
+ *
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg 信息提示
+ */
 // 3. 修改商品
 Router.post('/update', (req, res) => {
     // 获取修改数据的参数
@@ -103,6 +151,19 @@ Router.post('/update', (req, res) => {
         })
 })
 
+/**
+ * @api {post} /admin/goods/getInfos 分页查询
+ * @apiName getInfos
+ * @apiGroup Goods
+ *
+ * @apiParam {String} page 查询的第几页数据
+ * @apiParam {String} pageSize 每页几条数据
+ *
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg 信息提示
+ * @apiSuccess {Array} list 查询到的数据
+ * @apiSuccess {String} allCount 查询到总数据条数
+ */
 // 分页查询
 Router.post('/getInfos', (req, res) => {
     let page = req.body.page || 1 //查询的第几页数据
@@ -129,6 +190,17 @@ Router.post('/getInfos', (req, res) => {
         })
 })
 
+/**
+ * @api {post} /admin/goods/getInfosByType 分类查询
+ * @apiName getInfosByType
+ * @apiGroup Goods
+ *
+ * @apiParam {String} shopName 查询的店铺名
+ *
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg 信息提示
+ * @apiSuccess {Array} list 查询到的数据
+ */
 // 分类查询  
 // 分类查询的数据也可能很多 需要和分页查询做关联
 Router.post('/getInfosByType', (req, res) => {
@@ -154,6 +226,17 @@ Router.post('/getInfosByType', (req, res) => {
 
 })
 
+/**
+ * @api {post} /admin/goods/getInfosByKw 关键字查询
+ * @apiName getInfosByKw
+ * @apiGroup Goods
+ *
+ * @apiParam {String} kw 查询的关键字
+ *
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg 信息提示
+ * @apiSuccess {Array} list 查询到的数据
+ */
 // 模糊查询 关键字查询
 // 也要和分页做关联
 Router.post('/getInfosByKw', (req, res) => {
