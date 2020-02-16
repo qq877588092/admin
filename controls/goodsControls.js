@@ -46,9 +46,9 @@ let findGoodsByPage = async (page, pageSize) => {
 }
 
 //  分类查询
-let findGoodsByType = async (GoodsType) => {
+let findGoodsByType = async (shopName) => {
     let result = await goodsModel.find({
-        GoodsType
+        shopName
     })
     return result
 }
@@ -59,11 +59,11 @@ let findGoodsByKw = async (kw) => {
     let regex = new RegExp(kw)
     let result = await goodsModel.find({
         $or: [{
-            desc: {
+            title: {
                 $regex: regex
             }
         }, {
-            name: {
+            shopName: {
                 $regex: regex
             }
         }]

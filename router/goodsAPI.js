@@ -133,10 +133,12 @@ Router.post('/getInfos', (req, res) => {
 // 分类查询的数据也可能很多 需要和分页查询做关联
 Router.post('/getInfosByType', (req, res) => {
     let {
-        GoodsType
+        shopName
     } = req.body
-    findGoodsByType(GoodsType)
+    findGoodsByType(shopName)
         .then((data) => {
+            console.log(data);
+            
             res.send({
                 err: 1,
                 msg: '查询成功',
@@ -157,7 +159,7 @@ Router.post('/getInfosByType', (req, res) => {
 Router.post('/getInfosByKw', (req, res) => {
     let {
         kw
-    } = req.body || ''
+    } = req.body || ''//kw关键字,没有给定就是空字符串
     findGoodsByKw(kw)
         .then((data) => {
             res.send({
